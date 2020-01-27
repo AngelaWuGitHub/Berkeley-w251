@@ -17,7 +17,7 @@ I created five docker containers, three on Jetson TX2 and two on IBM VPC.
 1. jetson_ubuntu
     * Built using `./jetson_ubuntu/Dockerfile`
     * Attached to a user-defined network called `hw3-jetson-net`
-    * `./jetson_ubunto/face_reg.py` is executed in this container to scan videos, detect faces, and publish binary messages to a local MQTT broker `jetson_mqtt_broker`.
+    * `./jetson_ubuntu/face_reg.py` is executed in this container to scan videos, detect faces, and publish binary messages to a local MQTT broker `jetson_mqtt_broker`.
 2. jetson_mqtt_broker
     * Built using `./jetson_mqtt_broker/Dockerfile`
     * Attached to a user-defined network called `hw3-jetson-net`
