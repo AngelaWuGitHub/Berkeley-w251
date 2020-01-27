@@ -96,9 +96,9 @@ while (True):
         rc, png = cv2.imencode('.png', face_detected)
         if rc:
             print('Encode successfully')
-        # msg = png.tobytes()
+        msg = png.tobytes()
         # Reference: https://stackoverflow.com/questions/17967320/python-opencv-convert-image-to-byte-string
-        msg = png.tostring()
+        # msg = png.tostring()
 
         # Publish a message
         if flag_connected == 1:
