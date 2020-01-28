@@ -131,3 +131,30 @@ mkdir -m 777 /mnt/mybucket
 s3fs cos-w251-standard-hw3 /mnt/mybucket -o passwd_file=$HOME/.cos_creds -o sigv2 -o use_path_request_style -o url=https://s3.us-south.cloud-object-storage.appdomain.cloud
 ```
 
+#### 2.5 Checks
+Check 1: Inspect the `hw3-ibm-net` network to make sure both containers are connected to it  
+```docker network inspect hw3-ibm-net```  
+
+Check 2: To verify that the `ibm_mqtt_broker` container is set up correctly,  
+* Run `mosquitto_pub -t 'hw3_topic/test' -m 'helloWorld' -h 52.117.20.245` in the `jetson_mqtt_forwarder` container  
+* Run `mosquitto_sub -v -t 'hw3_topic/test' -h ibm_mqtt_broker` in the `ibm_ubuntu` container  
+
+If the `ibm_ubuntu` container prints out `helloWorld`, `ibm_mqtt_broker` is working properly. 
+
+
+### Section 3: Run the Application
+* In Container `jetson_mqtt_broker`, run `mosquitto -v -c /etc/mosquitto/mosquitto.conf`
+* In Container `ibm_mqtt_broker`, run `mosquitto -v -c /etc/mosquitto/mosquitto.conf`
+* In Container `jetson_mqtt_forwarder`, run `python3 mqtt_subscriber_local.py`
+* In Container `ibm_ubuntu`, run `python3 mqtt_subscriber_remote.py`
+* In Container `jetson_ubuntu`, run `python3 face_reg.py`
+
+If everything runs successfully, Containers `jetson_mqtt_forwarder` and `ibm_ubuntu` print out `Message received` for each face detected.
+
+
+### Section 4: Results
+I saved two examples of my faces in this repo.  
+
+![Example 1](MyFace-5.jpg)
+
+![Example 2](MyFace-20.jpg)
