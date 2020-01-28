@@ -55,28 +55,19 @@ Step 2: Run the container using:
 ```sudo docker run -it --name jetson_ubuntu --network hw3-jetson-net --device /dev/video1:/dev/video1 --env DISPLAY=$DISPLAY --env QT_X11_NO_MITSHM=1 --privileged jetson_ubuntu_image```  
 _Note_: without `--device`, `jetson_ubuntu` would not be able to access the USB camera.  
 
-Step 3: Run the application using:  
-```python3 face_reg.py```  
-
 #### 1.3 Container jetson_mqtt_broker
 Step 1: Create a docker image for `jetson_mqtt_broker` using:  
 ```sudo docker build --network hw3-jetson-net -t jetson_mqtt_broker_image -f ./jetson_mqtt_broker/Dockerfile .```  
 
 Step 2: Run the container using:  
 ```sudo docker run -it --name jetson_mqtt_broker --network hw3-jetson-net jetson_mqtt_broker_image```  
-
-Step 3: Run the application using:  
-```mosquitto -v -c /etc/mosquitto/mosquitto.conf```  
-
+  
 #### 1.4 Container jetson_mqtt_forwarder
 Step 1: Create a docker image for `jetson_mqtt_forwarder` using:  
 ```sudo docker build --network hw3-jetson-net -t jetson_mqtt_forwarder_image -f ./jetson_mqtt_forwarder/Dockerfile .```  
 
 Step 2: Run the container using:  
 ```sudo docker run -it --name jetson_mqtt_forwarder --network hw3-jetson-net jetson_mqtt_forwarder_image```  
-
-Step 3: Run the application using:  
-```python3 mqtt_subscriber_local.py```  
 
 #### 1.5 Checks
 Check 1: Inspect the `hw3-jetson-net` network to make sure all three containers are connected to it  
@@ -88,9 +79,55 @@ Check 2: To verify that the `jetson_mqtt_broker` container is set up correctly,
 
 If the `jetson_mqtt_forwarder` container prints out `helloWorld`, `jetson_mqtt_broker` is working properly. 
 
+
 ### Section 2: Setup on IBM
 
-#### 2.1 Create a user-defined network
-Similar to 1.1, I created a user-defined network called `hw3-ibm-net` using the following command.  
+#### 2.1 Create a VSI, a Cloud object storage and a bucket 
+I created a VSI using the GUI following the [week 2 homework](https://github.com/MIDS-scaling-up/v2/tree/master/week02/hw).  
+
+To create a Cloud object storage,
+* Go to Dashboard
+* At the top right corner, click "Create resource"
+* Search or select "Object Storage"
+* Enter the service name (for me, "cos-w251") and click "Create" on the right
+
+Under "Buckets", I created a bucket called `cos-w251-standard-hw3`.  
+To make the bucket accessible to public, 
+* Click `...` and select `Access Policies`
+* Click `Public Access` section
+* Click `Create access policy`  
+
+Under "Service Credentials", I created a new credential with "Include HMAC Credential" box checked. Under "View credentials", I see:  
+* "access_key_id": "a31221049778484a9608829383537f8b"
+* "secret_access_key": "779a9480e4a39af62f464e4eeb3c2edc8eb48bc71bf9eca2"
+
+The access key ID and the secret access key are needed to configure s3fs-fuse in Section 2.4.
+
+#### 2.2 Create a user-defined network
+Similar to Section 1.1, I created a user-defined network called `hw3-ibm-net` using the following command.  
 ```docker network create --driver bridge hw3-ibm-net```  
 Two containers (`ibm_mqtt_broker` and `ibm_ubuntu`) are attached to this network.
+
+#### 2.3 Container ibm_mqtt_broker
+Step 1: Create a docker image for `ibm_mqtt_broker` using:  
+```docker build --network hw3-ibm-net -t ibm_mqtt_broker_image -f ./ibm_mqtt_broker/Dockerfile .```  
+
+Step 2: Run the container using:  
+```docker run -it --name ibm_mqtt_broker --network hw3-ibm-net -p 1883:1883 ibm_mqtt_broker_image```  
+_Note_: use `-p` option to publish single ports so that the container port 1883 is available on my localhost 1883
+
+#### 2.4 Container ibm_ubuntu
+Step 1: Create a docker image for `ibm_ubuntu` using:  
+```docker build --network hw3-ibm-net -t ibm_ubuntu_image -f ./ibm_ubuntu/Dockerfile .```  
+
+Step 2: Run the container using:  
+```docker run -it --name ibm_ubuntu --network hw3-ibm-net --privileged ibm_ubuntu_image```  
+
+Inside the container, I mounted a newly created directory `/mnt/mybucket` to my bucket `cos-w251-standard-hw3` following the instruction in the [week2 lab2](https://github.com/MIDS-scaling-up/v2/tree/master/week02/lab2).  
+```
+echo "a31221049778484a9608829383537f8b:779a9480e4a39af62f464e4eeb3c2edc8eb48bc71bf9eca2" > $HOME/.cos_creds
+chmod 600 $HOME/.cos_creds
+mkdir -m 777 /mnt/mybucket
+s3fs cos-w251-standard-hw3 /mnt/mybucket -o passwd_file=$HOME/.cos_creds -o sigv2 -o use_path_request_style -o url=https://s3.us-south.cloud-object-storage.appdomain.cloud
+```
+
