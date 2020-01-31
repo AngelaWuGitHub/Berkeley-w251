@@ -21,7 +21,7 @@ I created five docker containers, three on Jetson TX2 and two on IBM VPC.
 2. jetson_mqtt_broker
     * Built using `./jetson_mqtt_broker/Dockerfile`
     * Attached to a user-defined network called `hw3-jetson-net`
-    * `./jetson_mqtt_broker/mosquitto.conf` is executed in this container.
+    * `mosquitto` is executed with `./jetson_mqtt_broker/mosquitto.conf` in this container.
 3. jetson_mqtt_forwarder
     * Built using `./jetson_mqtt_forwarder/Dockerfile`
     * Attached to a user-defined network called `hw3-jetson-net`
@@ -29,7 +29,7 @@ I created five docker containers, three on Jetson TX2 and two on IBM VPC.
 4. ibm_mqtt_broker
     * Built using `./ibm_mqtt_broker/Dockerfile`
     * Attached to a user-defined network called `hw3-ibm-net`
-    * `./ibm_mqtt_broker/mosquitto.conf` is executed in this container.
+    * `mosquitto` is executed with `./ibm_mqtt_broker/mosquitto.conf` in this container.
 5. ibm_ubuntu
     * Built using `./ibm_ubuntu/Dockerfile`
     * Attached to a user-defined network called `hw3-ibm-net`
