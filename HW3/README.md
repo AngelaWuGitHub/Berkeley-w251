@@ -122,6 +122,7 @@ Step 1: Create a docker image for `ibm_ubuntu` using:
 
 Step 2: Run the container using:  
 ```docker run -it --name ibm_ubuntu --network hw3-ibm-net --privileged ibm_ubuntu_image```  
+_Note_: `--privileged` is required for FUSE mount.
 
 Inside the container, I mounted a newly created directory `/mnt/mybucket` to my bucket `cos-w251-standard-hw3` following the instruction in the [week2 lab2](https://github.com/MIDS-scaling-up/v2/tree/master/week02/lab2).  
 ```
@@ -149,11 +150,11 @@ If the `ibm_ubuntu` container prints out `helloWorld`, `ibm_mqtt_broker` is work
 * In Container `ibm_ubuntu`, run `python3 mqtt_subscriber_remote.py`
 * In Container `jetson_ubuntu`, run `python3 face_reg.py`
 
-If everything runs successfully, Containers `jetson_mqtt_forwarder` and `ibm_ubuntu` print out `Message received` for each face detected.
+If everything runs successfully, Containers `jetson_mqtt_forwarder` and `ibm_ubuntu` print out `Message received` for each face detected, and images are saved real-time to my bucket.
 
 
 ### Section 4: Results
-Faces are saved real-time to my bucket. Currently there are 23 faces saved in my bucket. The public URL to each of those faces follows the format `https://cos-w251-standard-hw3.s3.us-south.cloud-object-storage.appdomain.cloud/MyFace-<number>.jpg`.  
+Currently there are 23 faces saved in my bucket. The public URL to each of those faces follows the format `https://cos-w251-standard-hw3.s3.us-south.cloud-object-storage.appdomain.cloud/MyFace-<number>.jpg`. `<number>` starts with 0.  
 For example, the public URL for the 6th face saved is `https://cos-w251-standard-hw3.s3.us-south.cloud-object-storage.appdomain.cloud/MyFace-5.jpg`.  
 
 I also saved two examples of my faces in this repo.  
