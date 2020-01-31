@@ -154,7 +154,7 @@ If everything runs successfully, Containers `jetson_mqtt_forwarder` and `ibm_ubu
 
 
 ### Section 4: Results
-Currently there are 23 faces saved in my bucket. The public URL to each of those faces follows the format `https://cos-w251-standard-hw3.s3.us-south.cloud-object-storage.appdomain.cloud/MyFace-<number>.jpg`. `<number>` starts with 0.  
+Currently there are 23 faces saved in my bucket. The public URL to each of those faces follows the format `https://cos-w251-standard-hw3.s3.us-south.cloud-object-storage.appdomain.cloud/MyFace-<number>.jpg`. `<number>` ranges from 0 to 22.  
 For example, the public URL for the 6th face saved is `https://cos-w251-standard-hw3.s3.us-south.cloud-object-storage.appdomain.cloud/MyFace-5.jpg`.  
 
 I also saved two examples of my faces in this repo.  
