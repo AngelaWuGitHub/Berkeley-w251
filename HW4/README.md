@@ -30,14 +30,14 @@ trainer = new convnetjs.SGDTrainer(net, {method:'adadelta', batch_size:20, l2_de
     * Pooling layer is used to extract dominant features. In ConvNetJS, it performs max pooling. Max pooling returns the maximum value from the portion of the image a filter hovers over.
     * In the default code of this demo, each filter is 2x2, and it moves across the image two pixels at a time (stride=2). The output dimension of this layer is 12x12x8.
   * Convolution layer
-    * In the default code of this demo, each filter is 5x5, and it moves across the image one pixel at a time (stride=1). Two additional blank pixels are added to the border of the image (pad=2). There are in total of 16 filters in this layer. The activation function is relu. The output dimension of this layer is 12x12x16
+    * In the default code of this demo, each filter is 5x5, and it moves across the image one pixel at a time (stride=1). Two additional blank pixels are added to the border of the image (pad=2). There are in total of 16 filters in this layer. The activation function is relu. The output dimension of this layer is 12x12x16.
   * Max pooling layer
     * In the default code of this demo, each filter is 3x3, and it moves across the image three pixels at a time (stride=3). The output dimension of this layer is 4x4x16.
   * Output layer
     * The output layer is a fully connected layer that is used to predict a set of discrete classes. In softmax, the outputs are probabilities that sum to 1.
     * In this demo, we are trying to predict hand-written digits from 0 to 9. So the number of classes is equal to 10.
 * Experiment with the number and size of filters in each layer. Does it improve the accuracy?
-  * Increasing the number of filters may increase accuracy, but also increase the chance of overfitting.
+  * Increasing the number of filters may increase accuracy, but also increases the chance of overfitting.
   * Increasing the filter size decreases accuracy. 
 * Remove the pooling layers. Does it impact the accuracy?
   * It reduces accuracy.
