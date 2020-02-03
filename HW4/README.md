@@ -1,6 +1,6 @@
 ## Homework 4 - DL 101
 
-### 2. ConvnetJS MNIST demo
+### 2. ConvnetJS MNIST Demo
 http://cs.stanford.edu/people/karpathy/convnetjs/demo/mnist.html
 
 Default model:  
@@ -37,7 +37,34 @@ trainer = new convnetjs.SGDTrainer(net, {method:'adadelta', batch_size:20, l2_de
     * The output layer is a fully connected layer that is used to predict a set of discrete classes. In softmax, the outputs are probabilities that sum to 1.
     * In this demo, we are trying to predict hand-written digits from 0 to 9. So the number of classes is equal to 10.
 * Experiment with the number and size of filters in each layer. Does it improve the accuracy?
+  * Increasing the number of filters may increase accuracy, but also increase the chance of overfitting.
+  * Increasing the filter size decreases accuracy. 
 * Remove the pooling layers. Does it impact the accuracy?
+  * It reduces accuracy.
 * Add one more conv layer. Does it help with accuracy?
+  * One more convolution layer doesn't increase accuracy, but adding one more convolution layer and one more max pooling layer increases accuracy. 
 * Increase the batch size. What impact does it have?
+  * It takes many more examples seen for the validation accuracy to increase to above 90%. Even after 16k examples seen, the validation accuracy is still floating under 90%.
 * What is the best accuracy you can achieve? Are you over 99%? 99.5%?
+  * My best validation accuracy is 99% with around 6.7k examples seen, and the model is as follows:
+  ```
+  layer_defs = [];
+  layer_defs.push({type:'input', out_sx:24, out_sy:24, out_depth:1});
+  layer_defs.push({type:'conv', sx:5, filters:16, stride:1, pad:2, activation:'relu'});
+  layer_defs.push({type:'pool', sx:2, stride:2});
+  layer_defs.push({type:'conv', sx:5, filters:32, stride:1, pad:2, activation:'relu'});
+  layer_defs.push({type:'pool', sx:3, stride:3});
+  layer_defs.push({type:'conv', sx:5, filters:32, stride:1, pad:2, activation:'relu'});
+  layer_defs.push({type:'pool', sx:3, stride:3});
+  layer_defs.push({type:'softmax', num_classes:10});
+
+  net = new convnetjs.Net();
+  net.makeLayers(layer_defs);
+
+  trainer = new convnetjs.SGDTrainer(net, {method:'adadelta', batch_size:10, learning_rate: 0.001, l2_decay:0.001});
+  ```
+  
+  
+### 3. Build Your Own Model in Keras
+  
+See `w251_homework04.ipynb` in this repo  
