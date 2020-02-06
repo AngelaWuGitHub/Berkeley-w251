@@ -2,6 +2,39 @@
 
 ### Introduction to Tensorflow v2
 
+TF2 beginner lab:
+* beginner.ipynb - the original Jupyter Notebook downloaded from https://www.tensorflow.org/tutorials/quickstart/beginner
+* beginner_my_run.ipynb - my run of the same Jupyter Notebook
+   * The structure of the network: a dense layer of 128 nodes with 20% dropout and an output layer to classify 10 classes
+   * Validation accuracy is 0.9764
+* beginner_improved.ipynb - I improved the network by adding two convoluation layers and two max pooling layer
+   ```
+   tf.keras.layers.Reshape(input_shape=(28,28,), target_shape=[28,28,1]),  
+   tf.keras.layers.Conv2D(16, kernel_size=(3,3), padding='same', activation='relu'),  
+   tf.keras.layers.MaxPooling2D(pool_size=(2,2)),  
+   tf.keras.layers.Conv2D(32, kernel_size=(3,3), padding='same', activation='relu'),  
+   tf.keras.layers.MaxPooling2D(pool_size=(2,2)),  
+   tf.keras.layers.Dropout(0.2),  
+   tf.keras.layers.Flatten(),  
+   tf.keras.layers.Dense(128, activation='relu'),  
+   tf.keras.layers.Dropout(0.2),  
+   tf.keras.layers.Dense(10, activation='softmax')
+   ```
+   * Validation accuracy is 0.9897
+   
+TF2 Quickstart lab:
+* transfer_learning_with_hub.ipynb - the original Jupyter Notebook downloaded from https://www.tensorflow.org/tutorials/images/transfer_learning_with_hub
+* transfer_learning_with_hub_my_run.ipynb - my run of the same Jupyter Notebook
+   * I reduced the batch size from 32 to 16 to fix the OOM error.
+   * I classified 15 out 16 `image_batch` pictures correctly.
+* transfer_learning_with_hub_improved.ipynb - I improved the network by adding additional dense layer
+   ```
+   feature_extractor_layer,
+   layers.Dense(256, activation='relu'),
+   layers.Dense(image_data.num_classes, activation='softmax')
+   ```
+   * I classified 16 out 16 `image_batch` pictures correctly.
+
 
 ### Introduction to / Comparison with Tensorflow v1
 
