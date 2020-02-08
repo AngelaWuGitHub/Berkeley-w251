@@ -55,11 +55,14 @@ TF2 Quickstart lab:
     * GoogleNet (an inception network): apply 1x1 pointwise convolution first to reduce dimensions and then apply multiples of 3x3, 5x5, etc. convolution layers to the same input layer
     * MobileNet (an Xception network): apply channel-wise (i.e., depthwise) nxn convolution (depth of 1) and then apply 1x1 pointwise convolution
 * In your own words, what is a bottleneck?
-    * A bottleneck is a 1x1 pointwise convolution layer that's designed to "collapse" feature maps and reduce dimensions.
+    * A bottleneck is a layer before the output layer that has the most dense representation of the input layer.
 * How is a bottleneck different from the concept of layer freezing?
-    * Both bottleneck layers and layer freezing reduces the number of parameters in a neural network. When a layer is frozen, the weights for that layer are updated. On the other hand, the weights for the bottleneck layer are updated.
+    * Input => Freezed-Layers => Last-Layer-To-Re-Compute => Output
+    * To train Last-Layer-To-Re-Compute, we need to evaluate outputs of Freezed-Layers multiple times for a given input data. In order to save time, we save the bottleneck values (i.e., outputs of Freezed-Layers) for each image.
 * In the TF1 lab, you trained the last layer (all the previous layers retain their already-trained state). Explain how the lab used the previous layers (where did they come from? how were they used in the process?)
+    * The lab analyzes every image through MobileNet except for its original output layer and calculates its bottleneck values. Then the lab uses the bottleneck values to train the last layer using the images in `tf_files_dir`. 
 * How does a low --learning_rate (step 7 of TF1) value (like 0.005) affect the precision? How much longer does training take?
+    * The default learning rate is 0.01. Decreasing learning rate to 0.005 
 * How about a --learning_rate (step 7 of TF1) of 1.0? Is the precision still good enough to produce a usable graph?
 * For step 8, you can use any images you like. Pictures of food, people, or animals work well. You can even use ImageNet images. How accurate was your model? Were you able to train it using a few images, or did you need a lot?
 * Run the TF1 script on the CPU (see instructions above) How does the training time compare to the default network training (section 4)? Why?
