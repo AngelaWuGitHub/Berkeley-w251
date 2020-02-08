@@ -38,7 +38,15 @@ TF2 Quickstart lab:
 
 ### Introduction to / Comparison with Tensorflow v1
 
-
+To resolve the OOM error, I had to:
+* Run `flush_buffers.sh`
+* Run the following in the python3 terminal
+    ```
+    import tensorflow as tf
+    tf.reset_default_graph()
+    ```
+    
+    
 ### Questions
 
 * What is TensorFlow? Which company is the leading contributor to TensorFlow?
