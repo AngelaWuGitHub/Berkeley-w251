@@ -70,9 +70,11 @@ To resolve the OOM error, I had to:
 * In the TF1 lab, you trained the last layer (all the previous layers retain their already-trained state). Explain how the lab used the previous layers (where did they come from? how were they used in the process?)
     * The lab analyzes every image through MobileNet except for its original output layer and calculates its bottleneck values. Then the lab uses the bottleneck values to train the last layer using the images in `tf_files_dir`. 
 * How does a low --learning_rate (step 7 of TF1) value (like 0.005) affect the precision? How much longer does training take?
-    * The default learning rate is 0.01. Decreasing learning rate to 0.005 
+    * The default learning rate is 0.01. Decreasing learning rate to 0.005 took a tiny bit longer to run (i.e., runtime increased from 17 min to 18 min), and the accuracy increased from 89% to 90.6%. 
 * How about a --learning_rate (step 7 of TF1) of 1.0? Is the precision still good enough to produce a usable graph?
+    * Not at all.
 * For step 8, you can use any images you like. Pictures of food, people, or animals work well. You can even use ImageNet images. How accurate was your model? Were you able to train it using a few images, or did you need a lot?
 * Run the TF1 script on the CPU (see instructions above) How does the training time compare to the default network training (section 4)? Why?
 * Try the training again, but this time do export ARCHITECTURE="inception_v3" Are CPU and GPU training times different?
 Given the hints under the notes section, if we trained Inception_v3, what do we need to pass to replace ??? below to the label_image script? Can we also glean the answer from examining TensorBoard?
+    * ```python -m scripts.label_image --input_layer="Mul" --input_height=299 --input_width=299  --graph=tf_files/retrained_graph.pb --image=tf_files/flower_photos/daisy/21652746_cc379e0eea_m.jpg```
