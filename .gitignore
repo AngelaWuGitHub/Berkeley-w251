@@ -1,3 +1,7 @@
 # ignore draw.io diagram
 /HW3/architecture_executed
 
+.ipynb_checkpoints
+
+*.bin
+
