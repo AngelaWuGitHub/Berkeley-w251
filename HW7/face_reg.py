@@ -3,21 +3,15 @@ import paho.mqtt.client as mqtt
 
 import sys
 import os
-import urllib
 # tf.contrib doesn't exist in 2.0.
 import tensorflow.contrib.tensorrt as trt
 # Code below works with TF2
 # from tensorflow.python.compiler.tensorrt import trt_convert as trt
-import matplotlib
-import matplotlib.pyplot as plt
-import matplotlib.patches as patches
 import tensorflow as tf
 import numpy as np
 import time
-from tf_trt_models.detection import download_detection_model, build_detection_graph
 
 print(cv2.getBuildInformation())
-matplotlib.use('Agg')
 
 # 1 should correspond to /dev/video1 , your USB camera. The 0 is reserved for the TX2 onboard camera
 cap = cv2.VideoCapture(1)
@@ -143,7 +137,7 @@ while (True):
     t0 = time.time()
     faces = face_cascade.detectMultiScale(frame_used, 1.3, 5)
     t1 = time.time()
-    print('Runtime: %f seconds' % float(t1 - t0))
+    print('Face Detection Runtime: %f seconds' % float(t1 - t0))
 
     if len(faces) > 0:
         print('---------------- Face(s) detected')
@@ -174,7 +168,10 @@ while (True):
 
     print('======================================== tf_trt_models ====================================')
     # Reference: https://www.tutorialkart.com/opencv/python/opencv-python-resize-image/
+    t0 = time.time()
     image_resized = np.array(cv2.resize(frame_used, (300, 300), interpolation=cv2.INTER_AREA))
+    t1 = time.time()
+    print('Resizing Runtime: %f seconds' % float(t1 - t0))
 
     # Run network on image
     t0 = time.time()
@@ -188,7 +185,7 @@ while (True):
     classes = classes[0]
     num_detections = num_detections[0]
     t1 = time.time()
-    print('Runtime: %f seconds' % float(t1 - t0))
+    print('Face Detection Runtime: %f seconds' % float(t1 - t0))
 
     print('Number of potential faces detected: ', num_detections)
 
