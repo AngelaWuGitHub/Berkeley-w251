@@ -25,11 +25,11 @@ Container used for face detection (in replace of jetson_ubuntu in HW3):
     * I followed the [sample notebook](https://github.com/MIDS-scaling-up/v2/blob/master/week07/hw/hw07-hint.ipynb) that loads and uses [one face detector](https://github.com/yeephycho/tensorflow-face-detection). It uses a mobilenet SSD (single shot multibox detector) based face detector with pretrained model provided, powered by tensorflow object detection api, trained by WIDERFACE dataset. 
     * Based on this blog (https://medium.com/nodeflux/performance-showdown-of-publicly-available-face-detection-model-7c725747094a), Mobilenet-SSD face detector can achieve a mean average precision of 72%.
 * Does it achieve reasonable accuracy in your empirical tests? Would you use this solution to develop a robust, production-grade system?
-    * In my empirical tests, the Mobilenet-SSD didn't perform as well as OpenCV. OpenCV was able to capture faces that the Mobilenet-SSD face detector cannot, and it was faster to run (see my responses for the next two questions for runtime comparison). So I would not use this to develop a robust production-grade system.
+    * In my empirical tests, the Mobilenet-SSD didn't perform as well as OpenCV. OpenCV was able to capture faces that the Mobilenet-SSD face detector could not, and it was faster to run (see my responses to the next two questions for runtime comparison). So I would not use this to develop a robust production-grade system.
 * What framerate does this method achieve on the Jetson? Where is the bottleneck?
-    * It takes approximately 0.09 seconds for the Mobilenet-SSD face detector to detect face(s). So the framerate is around 10 per second.
+    * It takes approximately 0.09 seconds for the Mobilenet-SSD face detector to detect face(s). So the framerate is around 10 per second. I guess the bottleneck is the processor speed.
 * Which is a better quality detector: the OpenCV or yours?
-    * It takes approximately 0.05 seconds for OpenCV to detect face(s), twice as fast as the neural face detector.
+    * It takes approximately 0.05 seconds for OpenCV to detect face(s), twice as fast as the Mobilenet-SSD face detector. In my test, OpenCV is the better quality detector.
     
 **Detected Face Images**:  
 Currently there are 26 faces saved in my bucket. The public URL to each of those faces follows the format `https://cos-w251-standard-hw7.s3.us-south.cloud-object-storage.appdomain.cloud/MyFace-<number>.jpg`. `<number>` ranges from 0 to 25.  
