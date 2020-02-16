@@ -31,7 +31,7 @@ Container used for face detection (in replace of jetson_ubuntu in HW3):
 * Which is a better quality detector: the OpenCV or yours?
     * It takes approximately 0.05 seconds for OpenCV to detect face(s), twice as fast as the neural face detector.
     
-** Detected Face Images**:
+**Detected Face Images**:  
 Currently there are 26 faces saved in my bucket. The public URL to each of those faces follows the format `https://cos-w251-standard-hw7.s3.us-south.cloud-object-storage.appdomain.cloud/MyFace-<number>.jpg`. `<number>` ranges from 0 to 25.  
 For example, the public URL for the 11th face saved is `https://cos-w251-standard-hw7.s3.us-south.cloud-object-storage.appdomain.cloud/MyFace-10.jpg`.  
 
