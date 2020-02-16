@@ -5,7 +5,7 @@ I modified [the processing pipeline implemented in HW3](https://github.com/Angel
 I made three modifications in total:
 * I created a new container `my_ubuntu6` for face detection (see details in the next section)
 * I modified the `face_reg.py` to use a Mobilenet-SSD face detector. I kept OpenCV Haarcascade face detector for runtime and accuracy comparison. The modified `face_reg.py` is included in this repo.
-* I modified `ibm_ubuntu` container in HW3 and saved thes image in `s3fs cos-w251-standard-hw7` instead of `s3fs cos-w251-standard-hw3`.
+* I modified `ibm_ubuntu` container in HW3 and saved the images in `s3fs cos-w251-standard-hw7` instead of `s3fs cos-w251-standard-hw3`.
 
 Container used for face detection (in replace of jetson_ubuntu in HW3):
 * `sudo docker run --name my_ubuntu6 --network hw3-jetson-net --device /dev/video1:/dev/video1 --privileged -dit -d w251/tensorflow:dev-tx2-4.3_b132-tf1 bash`
@@ -37,4 +37,4 @@ For example, the public URL for the 11th face saved is `https://cos-w251-standar
 
 I also saved one example of my face in this repo.  
 
-![Example 1](MyFace-10.jpg)
+![Example](MyFace-10.jpg)
