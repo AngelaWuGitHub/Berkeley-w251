@@ -30,8 +30,23 @@ Below is a screenshot of the learning rate plot from TensorBoard.
 Based on the screenshot above, the learning rate seems to increase linearly and then decay exponentially.  
 After reviewing [transformer-base.py](https://github.com/NVIDIA/OpenSeq2Seq/blob/master/example_configs/text2text/en-de/transformer-base.py) and [lr_policies.py](https://github.com/NVIDIA/OpenSeq2Seq/blob/master/open_seq2seq/optimizers/lr_policies.py), I found the learning rate is calculated as:  
 ```math
-xxxxx
+decay = coefficient * d_model ** -0.5 * tf.minimum((step_num + 1) * ws ** -1.5, (step_num + 1) ** -0.5)
+new_lr = decay * learning_rate
 ```
+and
+```math
+coefficient = 1.0
+d_model = 512
+ws = 8000
+learning_rate = 2.0
+```
+so
+```math
+new_lr = 2.0 * (512**-0.5 * min(8000**-1.5*(step_num + 1), (step_num + 1)**-0.5))
+```
+When step is small, the first term in the min function takes effect and thus `new_lr` increases linearly as step increases.  
+When step is large, the second term in the min function takes effect and thus `new_lr` is inversely correlated with square root of (step+1).  
+I recreated the learning rate in [Excel](Learning Rate Manual Calculation.xlsx) and it matches the learning rate plot in TensorBoard.
 
 7. How big was your training set (mb)? How many training lines did it contain?  
 `/data/wmt16_de_en/train.clean.en.shuffled.BPE_common.32K.tok` is 959MB and contains 4,524,868 lines.
