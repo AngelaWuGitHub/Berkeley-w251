@@ -1,6 +1,9 @@
 # ignore draw.io diagram
 /HW3/architecture_executed
 
+# ignore Tensorflow model checkpoints
+/HW9/logdir/*
+
 .ipynb_checkpoints
 
 *.bin
