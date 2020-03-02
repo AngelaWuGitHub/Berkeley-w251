@@ -7,7 +7,7 @@ nohup.out file is saved in this repo ([link](nohup.out)).
 I used a pair of P-100 VMs (i.e., AC1_16X120X100) and it took 26 hours, 23 minutes, and 36 seconds to run 50k steps.  
 
 2. Do you think your model is fully trained? How can you tell?  
-I think my model is close to (but not yet) fully trained. The evaluation loss had been decreasing and started to level off at 50k steps. The evaluation BLEU had been increasing and the growth was slowier toward the end.
+I think my model is close to (but not yet) fully trained. The evaluation loss had been decreasing and started to level off at 50k steps. The evaluation BLEU had been increasing and the growth was slowier toward the end, but there was still room for improvement at 50k steps.  
 ![Eval Loss](https://github.com/AngelaWuGitHub/Berkeley-w251/blob/master/HW9/Screenshots/TensorBoard%20Screenshot%20eval_loss.PNG)
 ![Eval BLEU](https://github.com/AngelaWuGitHub/Berkeley-w251/blob/master/HW9/Screenshots/TensorBoard%20Screenshot%20Eval_BLEU_Score.PNG)
 
@@ -64,7 +64,7 @@ I recreated the learning rate in [Excel](https://github.com/AngelaWuGitHub/Berke
   * `model.ckpt-<step>.meta`: 13MB
 
 10. Remember the definition of a "step". How long did an average step take?  
-Each step took about 1.9 seconds. 
+Each step took about 1.9 seconds on average. 
 
 11. How does that correlate with the observed network utilization between nodes?  
 At the end of each step, the network utilization between nodes increased.
