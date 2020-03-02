@@ -46,24 +46,26 @@ new_lr = 2.0 * (512**-0.5 * min(8000**-1.5*(step_num + 1), (step_num + 1)**-0.5)
 ```
 When step is small, the first term in the min function takes effect and thus `new_lr` increases linearly as step increases.  
 When step is large, the second term in the min function takes effect and thus `new_lr` is inversely correlated with square root of (step+1).  
-I recreated the learning rate in [Excel](Learning Rate Manual Calculation.xlsx) and it matches the learning rate plot in TensorBoard.
+I recreated the learning rate in [Excel](https://github.com/AngelaWuGitHub/Berkeley-w251/blob/master/HW9/Learning%20Rate%20Manual%20Calculation.xlsx). I attached a screenshot of my manually calculated learning rate below and it matches perfectly with the learning rate plot in TensorBoard above.  
+![Manually Calculated Learning Rate](https://github.com/AngelaWuGitHub/Berkeley-w251/blob/master/HW9/Manually%20Calculated%20Learning%20Rate.PNG)
 
 7. How big was your training set (mb)? How many training lines did it contain?  
 `/data/wmt16_de_en/train.clean.en.shuffled.BPE_common.32K.tok` is 959MB and contains 4,524,868 lines.
 
-8. What are the files that a TF checkpoint is comprised of?  
+8. What are the files that a TF checkpoint is comprised of?    
   TF checkpoint is comprised of three files:  
   * `model.ckpt-<step>.data-00000-of-00001`
   * `model.ckpt-<step>.index`
   * `model.ckpt-<step>.meta`
 
-9. How big is your resulting model checkpoint (mb)?  
+9. How big is your resulting model checkpoint (mb)?   
   * `model.ckpt-<step>.data-00000-of-00001`: 731MB
   * `model.ckpt-<step>.index`: 1MB
   * `model.ckpt-<step>.meta`: 13MB
 
-10. Remember the definition of a "step". How long did an average step take?
+10. Remember the definition of a "step". How long did an average step take?  
+Each step took about 1.9 seconds. 
 
-
-11. How does that correlate with the observed network utilization between nodes?
+11. How does that correlate with the observed network utilization between nodes?  
+At the end of each step, the network utilization between nodes increased.
 
