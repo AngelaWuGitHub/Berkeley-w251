@@ -4,7 +4,7 @@
 nohup.out file is saved in this repo.[INSERT LINK TO NOHUP.OUT HERE]
 
 1. How long does it take to complete the training run?  
-I used a pair of P-100 VMs (i.e., AC1_16X120X100) and it took about 26 and a half hours to run 50k steps.  
+I used a pair of P-100 VMs (i.e., AC1_16X120X100) and it took 26 hours, 23 minutes, and 36 seconds to run 50k steps.  
 
 2. Do you think your model is fully trained? How can you tell?  
 I think my model is close to fully trained. The evaluation loss had been decreasing and started to level off around 45k steps.  
