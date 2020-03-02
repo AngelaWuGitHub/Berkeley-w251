@@ -1,14 +1,15 @@
 ## Homework 9 - Distributed Training and Neural Machine Translation
 
 
-nohup.out file is saved in this repo.[INSERT LINK TO NOHUP.OUT HERE]
+nohup.out file is saved in this repo ([link](nohup.out)).
 
 1. How long does it take to complete the training run?  
 I used a pair of P-100 VMs (i.e., AC1_16X120X100) and it took 26 hours, 23 minutes, and 36 seconds to run 50k steps.  
 
 2. Do you think your model is fully trained? How can you tell?  
-I think my model is close to fully trained. The evaluation loss had been decreasing and started to level off around 45k steps.  
-[INSERT EVAL LOSS SCREENSHOT HERE]
+I think my model is close to (but not yet) fully trained. The evaluation loss had been decreasing and started to level off at 50k steps. The evaluation BLEU had been increasing and the growth was slowier toward the end.  
+
+![Eval Loss](Screenshots/TensorBoard Screenshot eval_loss.PNG)
 
 3. Were you overfitting?  
 The evaluation loss did not hit the bottom and increase yet, so I don't think the model overfitted.
