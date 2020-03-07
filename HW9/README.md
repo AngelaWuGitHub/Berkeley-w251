@@ -27,7 +27,7 @@ The receive and transimit throughput ranged from 180 Mbps to 210 Mbps (see scree
 Below is a screenshot of the learning rate plot from TensorBoard.  
 ![Learning Rate](https://github.com/AngelaWuGitHub/Berkeley-w251/blob/master/HW9/Screenshots/TensorBoard%20Screenshot%20learning_rate.PNG)
 
-Based on the screenshot above, the learning rate seems to increase linearly and then decay exponentially.  
+Based on the screenshot above, the learning rate appears to increase linearly and then decay exponentially (later I found out it was not an exponential decay as mentioned below).  
 After reviewing [transformer-base.py](https://github.com/NVIDIA/OpenSeq2Seq/blob/master/example_configs/text2text/en-de/transformer-base.py) and [lr_policies.py](https://github.com/NVIDIA/OpenSeq2Seq/blob/master/open_seq2seq/optimizers/lr_policies.py), I found the learning rate is calculated as:  
 ```math
 decay = coefficient * d_model ** -0.5 * tf.minimum((step_num + 1) * ws ** -1.5, (step_num + 1) ** -0.5)
@@ -67,5 +67,5 @@ I recreated the learning rate in [Excel](https://github.com/AngelaWuGitHub/Berke
 Each step took about 1.9 seconds on average. 
 
 11. How does that correlate with the observed network utilization between nodes?  
-At the end of each step, the network utilization between nodes increased.
+At the end of each step, there was a sudden increase in the network traffic (i.e., a higher network utilization between nodes). This makes sense because gradients need to be collected between nodes at the end of each step.
 
